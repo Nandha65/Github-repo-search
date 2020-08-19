@@ -3,10 +3,10 @@
     <input matInput (keydown.enter)="applyFilter($event.target.value)" placeholder="Search">
   </mat-form-field>
 </div>
-<div class="align-center bg-white" *ngIf="showLoader">
-  <mat-spinner></mat-spinner>
+<div class="align-center bg-white" [hidden]="!showLoader">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
 </div>
-<div class="example-container mat-elevation-z8" *ngIf="RepoItems && RepoItems.length > 0 && !showLoader">
+<div class="example-container mat-elevation-z8" [hidden]="!RepoItems || RepoItems.length == 0 || showLoader">
   <h4 class="repo-count">{{total_count}} repository results</h4>
   <mat-table [dataSource]="dataSource" >
 
@@ -24,9 +24,8 @@
       <mat-header-cell *matHeaderCellDef> Language </mat-header-cell>
       <mat-cell *matCellDef="let row" > {{row.language}} </mat-cell>
     </ng-container>
-
     <ng-container matColumnDef="stargazers_count">
-      <mat-header-cell *matHeaderCellDef > Stars <mat-icon aria-hidden="false" aria-label="Star icon">star_rate</mat-icon> </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef> Stars <mat-icon aria-hidden="false" aria-label="Star icon">star_rate</mat-icon> </mat-header-cell>
       <mat-cell *matCellDef="let row" > {{row.stargazers_count}} </mat-cell>
     </ng-container>
     <ng-container matColumnDef="updated_at">
@@ -39,5 +38,5 @@
     </mat-row>
   </mat-table>
 
-  <mat-paginator [length]="total_count" [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
+  <mat-paginator #paginator [length]="total_count" (page)="onPageFired($event)" [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
 </div>

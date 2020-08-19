@@ -1,4 +1,9 @@
-.example-container {
+  body { 
+    font-family: Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol" !important;
+    margin: 0;
+ }
+
+  .example-container {
     display: flex;
     flex-direction: column;
     min-width: 300px;
@@ -24,4 +29,27 @@
   }
   .align-center{
     text-align: center;
+  }
+  .mat-column-full_name {
+    flex: none;
+    width: 320px;
+  }
+  .mat-column-full_name a {
+    color: #0484f5;
+  }
+  .mat-column-description {
+    flex: none;
+    width: 450px;
+  }
+  .mat-column-language {
+    flex: none;
+    width: 130px;
+  }
+  .mat-column-stargazers_count {
+    flex: none;
+    width: 125px;
+  }
+  .mat-column-updated_at {
+    flex: none;
+    width: 160px;
   }

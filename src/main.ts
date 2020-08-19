@@ -12,7 +12,8 @@ import {
   MatProgressSpinnerModule,
   MatSnackBarModule,
   MatTableModule,
-  MatInputModule
+  MatInputModule,
+  MatSortModule
 } from '@angular/material';
 import {HttpClientModule} from '@angular/common/http';
 import {CdkTableModule} from '@angular/cdk/table';
@@ -23,6 +24,7 @@ import { AppComponent } from './app/app.component';
     CdkTableModule,
     MatNativeDateModule,
     MatPaginatorModule,
+    MatSortModule,
     MatProgressBarModule,
     MatProgressSpinnerModule,
     MatSnackBarModule,

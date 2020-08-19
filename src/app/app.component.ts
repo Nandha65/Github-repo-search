@@ -17,6 +17,8 @@ export class AppComponent {
   total_count = 0;
   RepoItems: [];
   showLoader = false;
+  searchValue = '';
+  gitAPI = 'https://api.github.com/search/repositories';
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
 
@@ -28,9 +30,11 @@ export class AppComponent {
   // tslint:disable-next-line: use-life-cycle-interface
   ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
+    this.getRepoDataSource(this.searchValue);
   }
 
   applyFilter(filterValue: string) {
+    this.searchValue = filterValue;
     this.getRepoDataSource(filterValue);
   }
 
@@ -42,19 +46,23 @@ export class AppComponent {
     return day + '/' + month + '/' + year;
   }
 
+  onPageFired() {
+    this.getRepoDataSource(this.searchValue);
+  }
+
   getRepoDataSource(filterValue: string) {
     this.showLoader = true;
     if (filterValue) {
-      this.http.get('https://api.github.com/search/repositories?per_page=100&q=' + filterValue).
+      const requestUrl = `${this.gitAPI}?q=${filterValue}&page=${this.paginator.pageIndex + 1}&per_page=${this.paginator.pageSize}`;
+      this.http.get(requestUrl).
       subscribe(data => {
         if (data) {
           console.log(data);
           const Repos = Object.assign(new RepoData(), data);
-          this.RepoItems = Repos.items;
           this.total_count = Repos.total_count;
-
+          this.RepoItems = Repos.items;
           this.dataSource = new MatTableDataSource(this.RepoItems);
-          setTimeout(() => this.dataSource.paginator = this.paginator);
+          // setTimeout(() => this.dataSource.paginator = this.paginator);
           if (this.total_count === 0) {
             this._snackBar.open('No repositories found for this keyword', 'close', {
               duration: 2000
@@ -66,9 +74,9 @@ export class AppComponent {
     } else {
       this.dataSource = new MatTableDataSource([]);
       this.total_count = 0;
-      this._snackBar.open('Enter search text to search', 'close', {
+      setTimeout(() => { this._snackBar.open('Enter search text to search', 'close', {
         duration: 2000
-      });
+      }); });
       this.showLoader = false;
     }
   }
