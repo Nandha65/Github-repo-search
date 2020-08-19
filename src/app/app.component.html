@@ -1,0 +1,43 @@
+<div class="example-header">
+  <mat-form-field>
+    <input matInput (keydown.enter)="applyFilter($event.target.value)" placeholder="Search">
+  </mat-form-field>
+</div>
+<div class="align-center bg-white" *ngIf="showLoader">
+  <mat-spinner></mat-spinner>
+</div>
+<div class="example-container mat-elevation-z8" *ngIf="RepoItems && RepoItems.length > 0 && !showLoader">
+  <h4 class="repo-count">{{total_count}} repository results</h4>
+  <mat-table [dataSource]="dataSource" >
+
+    <ng-container matColumnDef="full_name">
+      <mat-header-cell *matHeaderCellDef > Name </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <b><a href="{{row.html_url}}">{{row.full_name}}</a></b>
+      </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="description">
+      <mat-header-cell *matHeaderCellDef> Description</mat-header-cell>
+      <mat-cell *matCellDef="let row" > <b>{{row.description}}</b> </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="language">
+      <mat-header-cell *matHeaderCellDef> Language </mat-header-cell>
+      <mat-cell *matCellDef="let row" > {{row.language}} </mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="stargazers_count">
+      <mat-header-cell *matHeaderCellDef > Stars <mat-icon aria-hidden="false" aria-label="Star icon">star_rate</mat-icon> </mat-header-cell>
+      <mat-cell *matCellDef="let row" > {{row.stargazers_count}} </mat-cell>
+    </ng-container>
+    <ng-container matColumnDef="updated_at">
+      <mat-header-cell *matHeaderCellDef > Updated On </mat-header-cell>
+      <mat-cell *matCellDef="let row" > <b><span> {{GetFormattedDate(row.updated_at)}}</span></b> </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;">
+    </mat-row>
+  </mat-table>
+
+  <mat-paginator [length]="total_count" [pageSizeOptions]="[5, 10, 15]"></mat-paginator>
+</div>
