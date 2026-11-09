@@ -1,27 +1,25 @@
-# GithubRepoRhbAssessment
+# GitHub Repo Search
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.1.0.
+A small Angular app that searches GitHub repositories and lists the results. Built in 2020 as a front-end assessment project.
 
-## Development server
+> **Status:** Early learning project. It targets Angular 7 and is not actively maintained. For my current work, see [Skymood](https://github.com/Nandha65/skymood-theme) and [DocuMind](https://github.com/Nandha65/documind).
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Tech
 
-## Code scaffolding
+- Angular 7 (Angular CLI 7.1)
+- TypeScript
+- Karma and Protractor for tests
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Run locally
 
-## Build
+```bash
+npm install
+npx ng serve
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+Then open http://localhost:4200/. Because of its age, the project needs an older Node.js release (Node 10 or 12) to install cleanly.
 
-## Running unit tests
+## Project structure
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+- `src/app/github-repo-list/`: the search and results list component
+- `src/app/app.component.*`: the app shell
